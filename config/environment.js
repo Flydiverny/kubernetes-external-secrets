@@ -16,8 +16,6 @@ if (environment === 'development') {
   require('dotenv').config()
 }
 
-const eventsIntervalMilliseconds = process.env.EVENTS_INTERVAL_MILLISECONDS
-  ? Number(process.env.EVENTS_INTERVAL_MILLISECONDS) : 60000
 const pollerIntervalMilliseconds = process.env.POLLER_INTERVAL_MILLISECONDS
   ? Number(process.env.POLLER_INTERVAL_MILLISECONDS) : 10000
 
@@ -25,7 +23,6 @@ const logLevel = process.env.LOG_LEVEL || 'info'
 
 module.exports = {
   environment,
-  eventsIntervalMilliseconds,
   pollerIntervalMilliseconds,
   logLevel
 }
