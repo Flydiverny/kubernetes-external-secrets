@@ -40,6 +40,10 @@ spec:
             value: {{ $value | quote }}
           {{- end }}
           {{- end }}
+          {{- if .Values.scopeNamespace.enabled }}
+          - name: "SCOPE_NAMESPACE"
+            value: {{ include "kubernetes-external-secrets.scopeNamespace" . | quote }}
+          {{- end }}
           # Params for env vars populated from k8s secrets
           {{- range $key, $value := .Values.envVarsFromSecret }}
           - name: {{ $key }}

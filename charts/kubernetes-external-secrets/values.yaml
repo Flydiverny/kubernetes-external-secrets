@@ -38,6 +38,12 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
+scopeNamespace:
+  # Specifies whether the release should only respond to external secrets created within the scoped namespace.
+  enabled: false
+  # If not set and enabled is true, the release namespace will be used
+  namespaceOverride:
+
 replicaCount: 1
 
 image:
