@@ -4,7 +4,7 @@ kind: {{ include "kubernetes-external-secrets.rbacObject" . }}
 metadata:
   name: {{ include "kubernetes-external-secrets.fullname" . }}
   {{- if .Values.scopeNamespace.enabled }}
-  namespace: {{ include "kubernetes-external-secrets.scopeNamespace" .  | quote }}
+  namespace: {{ .Release.Namespace  | quote }}
   {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "kubernetes-external-secrets.name" . }}
@@ -35,11 +35,11 @@ rules:
     verbs: ["get", "update"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: {{ include "kubernetes-external-secrets.rbacObject" . }}Binding
+kind: {{ include "kubernetes-external-secrets.rbacBindingObject" . }}
 metadata:
   name: {{ include "kubernetes-external-secrets.fullname" . }}
   {{- if .Values.scopeNamespace.enabled }}
-  namespace: {{ include "kubernetes-external-secrets.scopeNamespace" .  | quote }}
+  namespace: {{ .Release.Namespace  | quote }}
   {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "kubernetes-external-secrets.name" . }}
@@ -51,19 +51,19 @@ roleRef:
   kind: {{ include "kubernetes-external-secrets.rbacObject" . }}
   name: {{ template "kubernetes-external-secrets.fullname" . }}
   {{- if .Values.scopeNamespace.enabled }}
-  namespace: {{ include "kubernetes-external-secrets.scopeNamespace" .  | quote }}
+  namespace: {{ .Release.Namespace  | quote }}
   {{- end }}
 subjects:
   - name: {{ template "kubernetes-external-secrets.serviceAccountName" . }}
-    namespace: {{ include "kubernetes-external-secrets.scopeNamespace" .  | quote }}
+    namespace: {{ .Release.Namespace  | quote }}
     kind: ServiceAccount
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: {{ include "kubernetes-external-secrets.rbacObject" . }}Binding
+kind: {{ include "kubernetes-external-secrets.rbacBindingObject" . }}
 metadata:
   name: {{ include "kubernetes-external-secrets.fullname" . }}-auth
   {{- if .Values.scopeNamespace.enabled }}
-  namespace: {{ include "kubernetes-external-secrets.scopeNamespace" .  | quote }}
+  namespace: {{ .Release.Namespace  | quote }}
   {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "kubernetes-external-secrets.name" . }}
@@ -76,6 +76,6 @@ roleRef:
   name: system:auth-delegator
 subjects:
   - name: {{ template "kubernetes-external-secrets.serviceAccountName" . }}
-    namespace: {{ include "kubernetes-external-secrets.scopeNamespace" .  | quote }}
+    namespace: {{ .Release.Namespace  | quote }}
     kind: ServiceAccount
 {{- end -}}

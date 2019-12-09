@@ -42,13 +42,6 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
-Create the name of the namespace into which the scope is limited
-*/}}
-{{- define "kubernetes-external-secrets.scopeNamespace" -}}
-{{ default .Release.Namespace .Values.scopeNamespace.namespaceOverride }}
-{{- end -}}
-
-{{/*
 Determine which kind of RBAC object will be created
 */}}
 {{- define "kubernetes-external-secrets.rbacObject" -}}
@@ -56,5 +49,16 @@ Determine which kind of RBAC object will be created
     {{ "Role" }}
 {{- else -}}
     {{ "ClusterRole" }}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Determine which kind of RBAC binding object will be created
+*/}}
+{{- define "kubernetes-external-secrets.rbacBindingObject" -}}
+{{- if .Values.scopeNamespace.enabled -}}
+    {{ "RoleBinding" }}
+{{- else -}}
+    {{ "ClusterRoleBinding" }}
 {{- end -}}
 {{- end -}}

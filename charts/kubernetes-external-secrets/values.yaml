@@ -39,10 +39,8 @@ serviceAccount:
   name:
 
 scopeNamespace:
-  # Specifies whether the release should only respond to external secrets created within the scoped namespace.
+  # Specifies whether the release should only respond to external secrets created within the release namespace.
   enabled: false
-  # If not set and enabled is true, the release namespace will be used
-  namespaceOverride:
 
 replicaCount: 1
 
