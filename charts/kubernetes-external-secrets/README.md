@@ -62,6 +62,7 @@ The following table lists the configurable parameters of the `kubernetes-externa
 | `serviceAccount.create`              | Whether a new service account name should be created.        | `true`                                                  |
 | `serviceAccount.name`                | Service account to be used.                                  | automatically generated                                 |
 | `serviceAccount.annotations`         | Annotations to be added to service account                   | `nil`                                                   |
+| `scopeNamespace.enabled`             | Limit the scope of the release, to only observe external secrets in the release namespace | `false`                    |
 | `podAnnotations`                     | Annotations to be added to pods                              | `{}`                                                    |
 | `podLabels`                          | Additional labels to be added to pods                        | `{}`                                                    |
 | `replicaCount`                       | Number of replicas                                           | `1`                                                     |
