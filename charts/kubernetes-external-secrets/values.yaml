@@ -41,6 +41,8 @@ serviceAccount:
 scopeNamespace:
   # Specifies whether the release should only respond to external secrets created within the release namespace.
   enabled: false
+  # Specifies whether existing externalsecrets CRDs should be updated or not.
+  doNotUpdateCrd: false
 
 replicaCount: 1
 

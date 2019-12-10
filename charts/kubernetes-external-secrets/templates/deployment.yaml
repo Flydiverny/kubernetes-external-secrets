@@ -43,6 +43,10 @@ spec:
           {{- if .Values.scopeNamespace.enabled }}
           - name: "SCOPE_NAMESPACE"
             value: {{ .Release.Namespace | quote }}
+          {{- if .Values.scopeNamespace.doNotUpdateCrd }}
+          - name: "DO_NOT_UPDATE_CRD"
+            value: "true"
+          {{- end }}
           {{- end }}
           # Params for env vars populated from k8s secrets
           {{- range $key, $value := .Values.envVarsFromSecret }}
