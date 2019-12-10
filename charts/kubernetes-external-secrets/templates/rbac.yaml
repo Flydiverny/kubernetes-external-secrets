@@ -15,11 +15,10 @@ rules:
   - apiGroups: [""]
     resources: ["secrets"]
     verbs: ["create", "update"]
-{{- if not .Values.scopeNamespace.enabled }}
   - apiGroups: [""]
     resources: ["namespaces"]
+    resourceNames: [{{ .Release.Namespace | quote }}]
     verbs: ["get", "watch", "list"]
-{{- end }}
   - apiGroups: ["apiextensions.k8s.io"]
     resources: ["customresourcedefinitions"]
     verbs: ["create"]
