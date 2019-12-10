@@ -29,12 +29,15 @@ const metricsPort = process.env.METRICS_PORT || 3001
 
 const scopeNamespace = process.env.SCOPE_NAMESPACE || null
 
+const doNotUpdateCrd = process.env.DO_NOT_UPDATE_CRD || null
+
 module.exports = {
   vaultEndpoint,
   environment,
   pollerIntervalMilliseconds,
   metricsPort,
   scopeNamespace,
+  doNotUpdateCrd,
   rolePermittedAnnotation,
   pollingDisabled,
   logLevel

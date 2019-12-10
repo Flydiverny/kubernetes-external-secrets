@@ -23,6 +23,7 @@ const {
   metricsPort,
   pollerIntervalMilliseconds,
   scopeNamespace,
+  doNotUpdateCrd,
   pollingDisabled,
   rolePermittedAnnotation
 } = require('../config')
@@ -31,9 +32,15 @@ async function main () {
   logger.info('loading kube specs')
   await kubeClient.loadSpec()
   logger.info('successfully loaded kube specs')
-  logger.info('updating CRD')
-  await customResourceManager.upsertResource({ customResourceManifest })
-  logger.info('successfully updated CRD')
+  if (doNotUpdateCrd) {
+    logger.info('creating CRD')
+    await customResourceManager.createResourceIfNotExists({ customResourceManifest })
+    logger.info('successfully created CRD')
+  } else {
+    logger.info('updating CRD')
+    await customResourceManager.upsertResource({ customResourceManifest })
+    logger.info('successfully updated CRD')
+  }
 
   const externalSecretEvents = getExternalSecretEvents({
     kubeClient,
