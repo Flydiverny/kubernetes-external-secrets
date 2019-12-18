@@ -49,9 +49,6 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: {{ include "kubernetes-external-secrets.rbacObject" . }}
   name: {{ template "kubernetes-external-secrets.fullname" . }}
-  {{- if .Values.scopeNamespace.enabled }}
-  namespace: {{ .Release.Namespace  | quote }}
-  {{- end }}
 subjects:
   - name: {{ template "kubernetes-external-secrets.serviceAccountName" . }}
     namespace: {{ .Release.Namespace  | quote }}
