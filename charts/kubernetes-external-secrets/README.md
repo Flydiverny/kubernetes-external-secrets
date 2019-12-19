@@ -62,6 +62,8 @@ The following table lists the configurable parameters of the `kubernetes-externa
 | `serviceAccount.create`              | Whether a new service account name should be created.        | `true`                                                  |
 | `serviceAccount.name`                | Service account to be used.                                  | automatically generated                                 |
 | `serviceAccount.annotations`         | Annotations to be added to service account                   | `nil`                                                   |
+| `scopeNamespace.enabled`             | Limit the scope of the release, to only observe external secrets in the release namespace | `false`                    |
+| `scopeNamespace.useExistingCrd`      | If this and `scopeNamespace.enabled` are enabled, the release will not update an existing externalsecret CRD | `false`                    |
 | `podAnnotations`                     | Annotations to be added to pods                              | `{}`                                                    |
 | `podLabels`                          | Additional labels to be added to pods                        | `{}`                                                    |
 | `replicaCount`                       | Number of replicas                                           | `1`                                                     |

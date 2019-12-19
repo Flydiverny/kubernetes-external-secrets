@@ -40,3 +40,25 @@ Create the name of the service account to use
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Determine which kind of RBAC object will be created
+*/}}
+{{- define "kubernetes-external-secrets.rbacObject" -}}
+{{- if and .Values.scopeNamespace.enabled .Values.scopeNamespace.useExistingCrd -}}
+    {{ "Role" }}
+{{- else -}}
+    {{ "ClusterRole" }}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Determine which kind of RBAC binding object will be created
+*/}}
+{{- define "kubernetes-external-secrets.rbacBindingObject" -}}
+{{- if and .Values.scopeNamespace.enabled .Values.scopeNamespace.useExistingCrd -}}
+    {{ "RoleBinding" }}
+{{- else -}}
+    {{ "ClusterRoleBinding" }}
+{{- end -}}
+{{- end -}}

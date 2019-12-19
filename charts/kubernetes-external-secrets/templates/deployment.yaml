@@ -40,6 +40,14 @@ spec:
             value: {{ $value | quote }}
           {{- end }}
           {{- end }}
+          {{- if .Values.scopeNamespace.enabled }}
+          - name: "SCOPE_NAMESPACE"
+            value: {{ .Release.Namespace | quote }}
+          {{- if .Values.scopeNamespace.useExistingCrd }}
+          - name: "USE_EXISTING_CRD"
+            value: "true"
+          {{- end }}
+          {{- end }}
           # Params for env vars populated from k8s secrets
           {{- range $key, $value := .Values.envVarsFromSecret }}
           - name: {{ $key }}

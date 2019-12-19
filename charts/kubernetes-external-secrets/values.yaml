@@ -38,6 +38,12 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
+scopeNamespace:
+  # Specifies whether the release should only respond to external secrets created within the release namespace.
+  enabled: false
+  # Specifies whether existing externalsecrets CRDs should be updated or not.
+  useExistingCrd: false
+
 replicaCount: 1
 
 image:
