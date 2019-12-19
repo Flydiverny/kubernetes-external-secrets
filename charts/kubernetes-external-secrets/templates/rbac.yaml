@@ -3,7 +3,7 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: {{ include "kubernetes-external-secrets.rbacObject" . }}
 metadata:
   name: {{ include "kubernetes-external-secrets.fullname" . }}
-  {{- if .Values.scopeNamespace.enabled }}
+  {{- if and .Values.scopeNamespace.enabled .Values.scopeNamespace.useExistingCrd }}
   namespace: {{ .Release.Namespace  | quote }}
   {{- end }}
   labels:
@@ -37,7 +37,7 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: {{ include "kubernetes-external-secrets.rbacBindingObject" . }}
 metadata:
   name: {{ include "kubernetes-external-secrets.fullname" . }}
-  {{- if .Values.scopeNamespace.enabled }}
+  {{- if and .Values.scopeNamespace.enabled .Values.scopeNamespace.useExistingCrd }}
   namespace: {{ .Release.Namespace  | quote }}
   {{- end }}
   labels:
@@ -55,12 +55,9 @@ subjects:
     kind: ServiceAccount
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: {{ include "kubernetes-external-secrets.rbacBindingObject" . }}
+kind: ClusterRole
 metadata:
   name: {{ include "kubernetes-external-secrets.fullname" . }}-auth
-  {{- if .Values.scopeNamespace.enabled }}
-  namespace: {{ .Release.Namespace  | quote }}
-  {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "kubernetes-external-secrets.name" . }}
     helm.sh/chart: {{ include "kubernetes-external-secrets.chart" . }}

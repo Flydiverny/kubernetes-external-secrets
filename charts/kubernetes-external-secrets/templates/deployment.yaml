@@ -43,8 +43,8 @@ spec:
           {{- if .Values.scopeNamespace.enabled }}
           - name: "SCOPE_NAMESPACE"
             value: {{ .Release.Namespace | quote }}
-          {{- if .Values.scopeNamespace.doNotUpdateCrd }}
-          - name: "DO_NOT_UPDATE_CRD"
+          {{- if .Values.scopeNamespace.useExistingCrd }}
+          - name: "USE_EXISTING_CRD"
             value: "true"
           {{- end }}
           {{- end }}
